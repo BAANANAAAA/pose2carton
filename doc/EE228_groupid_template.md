@@ -39,6 +39,7 @@ EE228 课程大作业，利用3D骨架控制3D卡通人物。
 
 
 # 匹配流程
+主要代码使用的流程是transfer_one_sequence -> transfer_given_posetransfer_one_sequence接受model.txt中的riginfo以及info_seq_5.pkl的数据文件，其中存储的是vertex vectors。只有在using_online_model==Ture时，这个函数会调用get_extra_uv_lines来决定用uv_lines形式保存还是triangles形式保存。transfer_given_pose函数接受输入human_pose的24×3 rotation vectors，model.txt的rig-info和model.obj的T-pose mesh。首先使用riginfo为所有节点建立index，并且在hier数组中保存joint之间的层级，整理为kinematic chain揭示节点之间的父子关系。然后这个函数调用man-ual_model_to_smpl把SMPL模型与卡通模型联系起来,最后得到posed character skeleton。最后根据蒙皮权重，蒙上皮输出outmesh，返回给transfer_one_sequence。
 
 fbx_parser主要是用来处理fbx文件，并且生成节点和蒙皮的（虽然在我们组的情况下没有生成fbm文件）。其中用到了make_group.py，maya_save_fbx.py和obj_loader.py。transfer则是用来匹配结点，vis则是利用transfer生成的obj序列合成视频来可视化。
 
@@ -90,4 +91,4 @@ fbx_parser主要是用来处理fbx文件，并且生成节点和蒙皮的（虽�
 
 所涉及代码及数据的最终解释权归倪冰冰老师课题组所有
 
-Group xx
+Group 9
